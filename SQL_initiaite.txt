@@ -1,0 +1,13 @@
+create database AMRBS_DB;
+use AMRBS_DB;
+create table Users(id int primary key auto_increment, name varchar(50), email varchar(100), phone varchar(10), dataID int);
+create table Roles (id int primary key auto_increment, role varchar(20));
+alter table Users add roleID int;
+alter table Users add foreign key (roleID) references Roles(id);
+create table Admins (id int primary key auto_increment, lastLoggedIn datetime, meetingRoomIDs json);
+create table Managers (id int primary key auto_increment, lastLoggedIn datetime, meetingIDs json, credits double, memberIDs json);
+create table members (id int primary key auto_increment, meetingIDs json, lastLoggedIn datetime);
+alter table members add managerID int;
+alter table Members add foreign key (managerID) references Managers(id);
+alter table users modify roleID int not null;
+alter table users add token varchar(50);
